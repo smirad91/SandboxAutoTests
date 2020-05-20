@@ -2,7 +2,7 @@ import time
 
 from selenium import webdriver
 
-from SandBox.Lib.functions import open_use_case, get_input, open_use_cases_page
+from Lib.functions import open_use_case, get_input, open_use_cases_page
 
 chrome = webdriver.Chrome()
 chrome.get("https://qa-sandbox.apps.htec.rs/")

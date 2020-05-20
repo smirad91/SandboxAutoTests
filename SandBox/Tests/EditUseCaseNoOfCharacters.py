@@ -1,6 +1,6 @@
 import time
 
-from SandBox.Lib.functions import start_browser, go_to, login, open_use_cases_page, does_exist_use_case, open_use_case, \
+from Lib.functions import start_browser, go_to, login, open_use_cases_page, does_exist_use_case, open_use_case, \
     get_input, set_input, create_use_case, submit_use_case, delete_use_case
 
 username = "smirad91@gmail.com"
