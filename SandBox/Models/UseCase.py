@@ -1,5 +1,7 @@
 class UseCase:
-
+    """
+    Stores all data from use case
+    """
     def __init__(self, title, description, expected_result, steps):
         self.title = title
         self.description = description

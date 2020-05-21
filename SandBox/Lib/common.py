@@ -1,5 +1,4 @@
 import time
-from selenium import webdriver
 
 
 def wait_until(somepredicate, timeout, period=1, errorMessage="Timeout expired"):

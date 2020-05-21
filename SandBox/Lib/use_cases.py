@@ -13,13 +13,11 @@ class UseCasePage:
         :param driver: webdriver used for browser starting
         """
         wait_until(lambda: self.browser.find_element_by_class_name("list-group"),10)
-        print(title)
-        print("title je iznad")
-        useCaseList = self.browser.find_element_by_css_selector("div[class*='list-group']").find_elements_by_tag_name("a")
+        useCaseList = self.browser.find_element_by_css_selector("div[class*='list-group']")\
+            .find_elements_by_tag_name("a")
         for ucl in useCaseList:
             if title.lower() == ucl.text.lower():
                 ucl.click()
-                print("otvori use case")
                 break
 
 
@@ -38,23 +36,27 @@ class UseCasePage:
         return exist
 
     def get_input(self):
-        #returns list
+        """
+        From opened use case inputs, creates UseCase object
+        :return: All input fields from opened use case
+        :type: UseCase
+        """
         wait_until(lambda: self.browser.find_element_by_name("title"), 10)
         title = self.browser.find_element_by_name("title").get_attribute('value')
         description = self.browser.find_element_by_name("description").text
         expected_result = self.browser.find_element_by_name("expected_result").get_attribute('value')
-        # stepParentElement = driver.find_element_by_css_selector("form[autocomplete='']")
         steps = self.browser.find_elements_by_css_selector("input[placeholder*='* Use case step']")
         steps_list = []
-        print(title)
-        print(description)
-        print(expected_result)
         for s in steps:
             steps_list.append(s.get_attribute("value"))
-            print(s.get_attribute('value'))
         return UseCase(title, description, expected_result, steps_list)
 
     def set_input(self, use_case):
+        """
+        On opened use case insert input
+        :param use_case: Contains input data to insert
+        :type: UseCase
+        """
         wait_until(lambda: self.browser.find_element_by_name("title"), 10)
         self.browser.find_element_by_name("title").clear()
         self.browser.find_element_by_name("title").send_keys(use_case.title)
@@ -83,6 +85,9 @@ class UseCasePage:
             steps[i].send_keys(step)
 
     def delete_use_case(self, title):
+        """
+        Deletes use case with given title
+        """
         if self.does_exist_use_case(title):
             print("Warning: Use case {} already exists".format(title))
         self.open_use_case(title)
@@ -92,22 +97,22 @@ class UseCasePage:
         self.browser.find_element_by_xpath("//button[text()='Delete']").click()
         wait_until(lambda: self.browser.find_element_by_class_name("list-group"),10)
 
-
-    def input_use_case_info(self, title, dsc, er, steps):
-        self.browser.find_element_by_name("title").send_keys(title)
-        self.browser.find_element_by_name("description").text = dsc
-        self.browser.find_element_by_name("expected_result").send_keys(er)
-        self.browser.find_element_by_css_selector("input[placeholder*='* Use case step']").send_keys["gfg"]
-        for step in steps:
-            pass
-
     def create_use_case(self):
+        """
+        Click on button for create use case
+        """
         self.browser.find_element_by_css_selector("a[data-testid='create_use_case_btn']").click()
 
     def open_use_cases_page(self):
+        """
+        From dashboard opens use case page
+        """
         self.browser.find_element_by_xpath("//*[contains(text(),'{}')]".format("se cases")).click()
 
     def submit_use_case(self):
+        """
+        Click on submit on create use case page
+        """
         self.browser.find_element_by_css_selector("button[type='submit']").click()
 
 

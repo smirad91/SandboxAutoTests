@@ -7,6 +7,9 @@ class LoginPage:
         self.browser = browser
 
     def login(self, username, password):
+        """
+        Login with given username and password
+        """
         try:
             wait_until(lambda: self.browser.find_element_by_css_selector("a[href='/login']"), 10)
             self.browser.find_element_by_css_selector("a[href='/login']").click()
