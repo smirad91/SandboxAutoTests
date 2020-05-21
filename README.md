@@ -29,7 +29,9 @@ that is not bound to web site, every web site can use it. Other filer are bound 
 sandbox web site. It contains business logic for this site. Files are separated
 by feature. Tests are created in a way that they don't leave changes on web site.
 For example if test needs specific use case, test will create it, and delete it before test 
-ends.
+ends. What this framework is missing is logging mechanism, some configuration file that
+would contain variables from tests and every test can reach them, reporting dashboard, plans
+that contains tests.
     
     
    
