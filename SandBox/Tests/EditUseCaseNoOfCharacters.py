@@ -1,38 +1,43 @@
-from Lib.common import start_browser, go_to
-from Lib.use_cases import login, open_use_cases_page, does_exist_use_case, open_use_case, \
-    get_input, set_input, create_use_case, submit_use_case, delete_use_case
+from selenium import webdriver
+from Lib.login import LoginPage
+from Lib.use_cases import UseCasePage
 from Models.UseCase import UseCase
 
-#variables below should be in separate json file as key values
+###variables (should be in separate json file as key values)
 username = "smirad91@gmail.com"
 password = "qasb2020cao$"
 url = "https://qa-sandbox.apps.htec.rs/"
-# test_case_data = ["Use Case Created From Automated Test - Delete Me", "Created automatically as precondition",
-#                     "Expected results automatically created", ["Open some page", "Create list", "Sort created list"]]
 use_case = UseCase("Use Case Created From Automated Test - Delete Me", "Created automatically as precondition",
                      "Expected results automatically created", ["Open some page", "Create list", "Sort created list"])
+###variables end
 
-browser = start_browser()
-go_to(browser, url)
-login(browser, username, password)
-open_use_cases_page(browser)
+
+
+browser = webdriver.Chrome()
+browser.get(url)
+
+login_page = LoginPage(browser)
+login_page.login(username, password)
+use_case_page = UseCasePage(browser)
+use_case_page.open_use_cases_page()
 
 ###precondition for test is to have use case created for testing purposes
-create_use_case(browser)
-set_input(browser, use_case)
-submit_use_case(browser)
+use_case_page.create_use_case()
+use_case_page.set_input(use_case)
+use_case_page.submit_use_case()
 ###precondition end
 
-open_use_case(browser, use_case.title)
-opened_use_case = get_input(browser)
+use_case_page.open_use_case(use_case.title)
+opened_use_case = use_case_page.get_input()
 
-opened_use_case.edit_characters()
-set_input(browser, opened_use_case)
+opened_use_case.edit_on_specific_way()
+use_case_page.set_input(opened_use_case)
+use_case_page.submit_use_case()
 
-submit_use_case(browser)
 
-
-###wrap up test, remove everything that is changed
-delete_use_case(browser, opened_use_case.title)
+###wrap up test, remove everything that is changed by this test
+use_case_page.delete_use_case(opened_use_case.title)
 ###wrap up end
+
+browser.close()
 

@@ -18,9 +18,9 @@ To run automated test that are written in python, you need to finish some steps:
     If ImportError is not shown, this step is done.
     
  3. System variable PYTHONPATH should have value of relative path to SandBox folder.
-    User variables, Path should have path to chromedriver folder.
+    User variables, Path should have path to chromedriver folder. 
     
-Note: restart cmd after setting environment variables.
+Note: restart cmd after setting environment variables. Use latest Chrome version for running tests.
     
     
    

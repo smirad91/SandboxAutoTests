@@ -1,14 +1,6 @@
 import time
-
 from selenium import webdriver
 
-
-def start_browser():
-    chrome = webdriver.Chrome()
-    return chrome
-
-def go_to(driver, url):
-    driver.get(url)
 
 def wait_until(somepredicate, timeout, period=1, errorMessage="Timeout expired"):
     """
