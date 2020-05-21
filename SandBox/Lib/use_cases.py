@@ -1,6 +1,6 @@
 import time
-
-from selenium import webdriver
+from Lib.common import wait_until
+from Models.UseCase import UseCase
 
 
 def open_use_case(driver, title):
@@ -13,6 +13,7 @@ def open_use_case(driver, title):
             ucl.click()
             print("otvori use case")
             break
+
 
 def does_exist_use_case(driver, title):
     exist = False
@@ -38,33 +39,33 @@ def get_input(driver):
     for s in steps:
         steps_list.append(s.get_attribute("value"))
         print(s.get_attribute('value'))
-    return [title, description, expected_result, steps_list]
+    return UseCase(title, description, expected_result, steps_list)
 
-def set_input(driver, input_list):
+def set_input(driver, use_case):
     wait_until(lambda: driver.find_element_by_name("title"), 10)
     driver.find_element_by_name("title").clear()
-    driver.find_element_by_name("title").send_keys(input_list[0])
+    driver.find_element_by_name("title").send_keys(use_case.title)
     driver.find_element_by_name("description").clear()
-    driver.find_element_by_name("description").send_keys(input_list[1])
+    driver.find_element_by_name("description").send_keys(use_case.description)
     driver.find_element_by_name("expected_result").clear()
-    driver.find_element_by_name("expected_result").send_keys(input_list[2])
+    driver.find_element_by_name("expected_result").send_keys(use_case.expected_result)
     steps = driver.find_elements_by_css_selector("input[placeholder*='* Use case step']")
-    if len(steps) < len(input_list[3]):
+    if len(steps) < len(use_case.steps):
         #click on add step
-        add_number = len(input_list[3]) - len(steps)
+        add_number = len(use_case.steps) - len(steps)
         add_step_btn = driver.find_element_by_class_name("addTestStep")
         for i in range(add_number):
             time.sleep(1)
             add_step_btn.click()
-    elif len(steps) > len(input_list[3]):
+    elif len(steps) > len(use_case.steps):
         #remove
-        remove_number = len(steps) - len(input_list[3])
+        remove_number = len(steps) - len(use_case.steps)
         remove_btns = driver.find_elements_by_css_selector("button[data-testid='delete_usecase_step_btn']")
         for i in range(remove_number):
             time.sleep(1)
             remove_btns[i].click()
     steps = driver.find_elements_by_css_selector("input[placeholder*='* Use case step']")
-    for i, step in enumerate(input_list[3]):
+    for i, step in enumerate(use_case.steps):
         steps[i].clear()
         steps[i].send_keys(step)
 
@@ -108,35 +109,3 @@ def login(driver, username, password):
     driver.find_element_by_css_selector("button[type='submit']").click()
     wait_until(lambda: len(driver.find_elements_by_css_selector("button[type='submit']"))==0, 10)
 
-def start_browser():
-    chrome = webdriver.Chrome()
-    return chrome
-
-def go_to(driver, url):
-    driver.get(url)
-
-def wait_until(somepredicate, timeout, period=1, errorMessage="Timeout expired"):
-    """
-    Somepredicate is function that returns True or False. This function is executed every for period during
-    timeout. When somepredicate return True wait is done. If somepredicate don't return True during timeout,
-    exception is raised.
-
-    :param somepredicate: Function that return True of False
-    :type somepredicate: func
-    :param timeout: Timeout to wait
-    :type timeout: int
-    :param period: Execute function for every period seconds
-    :type period: float
-    :return:
-    """
-    mustend = time.time() + timeout
-    value = False
-    while time.time() < mustend:
-        try:
-            value = somepredicate()
-        except:
-            pass
-        if value:
-            return True
-        time.sleep(period)
-    raise Exception(errorMessage)
