@@ -1,4 +1,4 @@
-How to run tests in windows
+#How to run tests in windows
 
 To run automated test that are written in python, you need to finish some steps:
  1. install python 3.8
@@ -21,6 +21,15 @@ To run automated test that are written in python, you need to finish some steps:
     User variables, Path should have path to chromedriver folder. 
     
 Note: restart cmd after setting environment variables. Use latest Chrome version for running tests.
+
+
+#About test framework:
+Modules are stored in Lib folder. There exist common.py file that contains business logic
+that is not bound to web site, every web site can use it. Other filer are bound to
+sandbox web site. It contains business logic for this site. Files are separated
+by feature. Tests are created in a way that they don't leave changes on web site.
+For example if test needs specific use case, test will create it, and delete it before test 
+ends.
     
     
    

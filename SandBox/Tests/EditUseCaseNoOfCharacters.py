@@ -1,8 +1,8 @@
 ###Created by <sr>
 
 from selenium import webdriver
-from Lib.login import LoginPage
-from Lib.use_cases import UseCasePage
+from Lib.sandBoxSite.login import LoginPage
+from Lib.sandBoxSite.use_cases import UseCasePage
 from Models.UseCase import UseCase
 
 ###variables (should be in separate json file as key values)
