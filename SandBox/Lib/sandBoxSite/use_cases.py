@@ -25,6 +25,17 @@ class UseCasePage:
         # log.info("Use case {} does not exist".format(title))
         return False
 
+    def number_of_use_case(self, title):
+        number = 0
+        wait_until(lambda: self.browser.find_element_by_class_name("list-group"), 10)
+        use_case_list = self.browser.find_element_by_css_selector("div[class*='list-group']") \
+            .find_elements_by_tag_name("a")
+        for ucl in use_case_list:
+            if title.lower() == ucl.text.lower():
+                number += 1
+        return number
+
+
     def get_input(self):
         """
         From opened use case inputs, creates UseCase object
@@ -69,7 +80,6 @@ class UseCasePage:
         # log.screenshot("Number of steps set. Number is: {}".format(len(use_case.steps)))
         self._input_steps(use_case.steps)
 
-
     def _input_steps(self, steps_description):
         # log.info("Insert steps description")
         steps = self.browser.find_elements_by_css_selector("input[placeholder*='* Use case step']")
@@ -87,6 +97,7 @@ class UseCasePage:
 
     def _remove_step(self, serial_number):
         # log.info("Remove {} step".format(serial_number))
+        serial_number = serial_number - 2
         remove_btns = self.browser.find_elements_by_css_selector("button[data-testid='delete_usecase_step_btn']")
         remove_btns[serial_number].click()
 
@@ -125,6 +136,13 @@ class UseCasePage:
         self.browser.find_element_by_xpath("//*[contains(text(),'{}')]".format("se cases")).click()
         wait_until(lambda: self.browser.find_element_by_css_selector("a[data-testid='create_use_case_btn'"), 10)
         # log.screenshot("Use cases page opened")
+
+    def go_back(self):
+        # log.info("Go back to use cases page")
+        wait_until(lambda: self.browser.find_element_by_css_selector("a[href='/use-cases']"), 10)
+        self.browser.find_element_by_css_selector("a[href='/use-cases']").click()
+        wait_until(lambda: "//b[text()='Use Cases']", 10)
+        time.sleep(1) # this waiting is added because test fails if this line does not exist for some reason
 
     def submit_use_case(self):
         """

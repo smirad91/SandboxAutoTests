@@ -27,12 +27,18 @@ Note: restart cmd after setting environment variables. Use latest Chrome version
 Modules are stored in Lib folder. There exist common.py file that contains business logic
 that is not bound to web site, every web site can use it. Other filer are bound to
 sandbox web site. It contains business logic for this site. Files are separated
-by feature. Tests are created in a way that they don't leave changes on web site.
-For example if test needs specific use case, test will create it, and delete it at the end
- of test. Example how logging would be added, if logging mechanism exist,
-  is given in pattern: # <log.info("")> , # <log.screenshot(""")>
+by feature. 
 
-What this framework is missing is logging mechanism, some configuration file that
+Tests are created in a way that they don't leave changes on web site.
+For example if test needs specific use case, test will create it, and delete it at the end
+of test. Example how logging would be added, if logging mechanism exist,
+is given in pattern: **# log.info("")** ,** # log.screenshot("")**. Proposal is to
+write info before action, and after action is done put screenshot.
+Method **wait_until** is used for dynamic waiting, when condition that we are waiting for is
+ reached this method is finished, as opposite of static waiting (time.sleep()).
+  
+What this framework is missing is logging mechanism, way to store elements from web page
+in one location, some configuration file that
 would contain variables from tests and that every test can reach, reporting dashboard, plans
 that contains tests.
     

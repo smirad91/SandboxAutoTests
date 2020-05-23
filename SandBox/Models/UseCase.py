@@ -26,3 +26,9 @@ class UseCase:
         self.steps = new_steps
         # log.screenshot("Fields are edited.")
 
+    def which_step_deleted(self, edited_steps):
+        deleted_step = set(self.steps).difference(set(edited_steps))
+        step = deleted_step.pop()
+        return step
+
+

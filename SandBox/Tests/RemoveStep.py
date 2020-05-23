@@ -1,18 +1,20 @@
-
+### Created by <sr>
 
 from selenium import webdriver
 from Lib.sandBoxSite.login import LoginPage
 from Lib.sandBoxSite.use_cases import UseCasePage
-from Models.UseCase import UseCase
+
 
 ### variables (should be in separate json file as key values)
+from Models.UseCase import UseCase
+
 username = "smirad91@gmail.com"
 password = "qasb2020cao$"
 url = "https://qa-sandbox.apps.htec.rs/"
-use_case = UseCase("Use Case Created From Automated Test - Delete Me", "Created automatically as precondition",
-                     "Expected results automatically created", ["Open some page", "Create list", "Sort created list"])
+use_case = UseCase("Use case created by automated test - Delete me", "description",
+                "expected result", ["first step", "second step", "third step", "fourth step", "fifth step"])
+step_to_delete = 2
 ### variables end
-
 
 
 browser = webdriver.Chrome()
@@ -30,16 +32,20 @@ use_case_page.submit_use_case()
 ### precondition end
 
 use_case_page.open_use_case(use_case.title)
-opened_use_case = use_case_page.get_input()
-
-opened_use_case.edit_on_specific_way()
-use_case_page.set_input(opened_use_case)
+use_case_page._remove_step(step_to_delete)
 use_case_page.submit_use_case()
 
+use_case_page.open_use_case(use_case.title)
+edited_use_case = use_case_page.get_input()
+# log.screenshot("Steps before deletion")
 
-### wrap up test, remove everything that is changed by this test
-use_case_page.delete_use_case(opened_use_case.title)
-### wrap up end
+step = use_case.which_step_deleted(edited_use_case.steps)
+if step != use_case.steps[step_to_delete-1]:
+    assert False, "Wrong step deleted"
+
+use_case_page.go_back()
+
+use_case_page.delete_use_case(use_case.title)
 
 browser.close()
 
