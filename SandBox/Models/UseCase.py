@@ -13,10 +13,16 @@ class UseCase:
         Edit all parameters by replacing it with string
         "This field previously had"+No of characters+"characters"
         """
+        # log.info("Edit use case all fields in pattern: 'This field previously had x characters' ")
         self.title = "This field previously had {} characters - Delete me".format(len(self.title))
         self.description = "This field previously had {} characters".format(len(self.description))
         self.expected_result = "This field previously had {} characters".format(len(self.expected_result))
+        # log.info("New fields: {},{},{}".format(self.title, self.description, self.expected_result))
         new_steps = []
         for step in self.steps:
-            new_steps.append("This field previously had {} characters".format(len(step)))
+            step_text = "This field previously had {} characters".format(len(step))
+            new_steps.append(step_text)
+            # log.info("New step: {}".format(step_text)
         self.steps = new_steps
+        # log.screenshot("Fields are edited.")
+

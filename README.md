@@ -17,8 +17,8 @@ To run automated test that are written in python, you need to finish some steps:
     will open. In opened python console execute python command "import selenium".
     If ImportError is not shown, this step is done.
     
- 3. System variable PYTHONPATH should have value of relative path to SandBox folder.
-    User variables, Path should have path to chromedriver folder. 
+ 3. System variable **PYTHONPATH** should have value of  path to SandBox folder.
+    User variables, **Path** should have path to chromedriver folder. 
     
 Note: restart cmd after setting environment variables. Use latest Chrome version for running tests.
 
@@ -28,9 +28,12 @@ Modules are stored in Lib folder. There exist common.py file that contains busin
 that is not bound to web site, every web site can use it. Other filer are bound to
 sandbox web site. It contains business logic for this site. Files are separated
 by feature. Tests are created in a way that they don't leave changes on web site.
-For example if test needs specific use case, test will create it, and delete it before test 
-ends. What this framework is missing is logging mechanism, some configuration file that
-would contain variables from tests and every test can reach them, reporting dashboard, plans
+For example if test needs specific use case, test will create it, and delete it at the end
+ of test. Example how logging would be added, if logging mechanism exist,
+  is given in pattern: # <log.info("")> , # <log.screenshot(""")>
+
+What this framework is missing is logging mechanism, some configuration file that
+would contain variables from tests and that every test can reach, reporting dashboard, plans
 that contains tests.
     
     
