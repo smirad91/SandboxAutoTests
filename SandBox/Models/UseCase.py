@@ -27,8 +27,15 @@ class UseCase:
         # log.screenshot("Fields are edited.")
 
     def which_step_deleted(self, edited_steps):
+        """
+        Returns step that is missing
+        :param edited_steps: Steps as in current use case but with one less step
+        :type: UseCase
+        """
+        # log.info("Find deleted step from {} and {}".format(self.steps, edited_steps))
         deleted_step = set(self.steps).difference(set(edited_steps))
         step = deleted_step.pop()
+        # log.info("Deleted step is {}".format(step))
         return step
 
 

@@ -26,6 +26,7 @@ class UseCasePage:
         return False
 
     def number_of_use_case(self, title):
+        # log.info("Get number of use case: {}".format(title))
         number = 0
         wait_until(lambda: self.browser.find_element_by_class_name("list-group"), 10)
         use_case_list = self.browser.find_element_by_css_selector("div[class*='list-group']") \
@@ -33,6 +34,7 @@ class UseCasePage:
         for ucl in use_case_list:
             if title.lower() == ucl.text.lower():
                 number += 1
+        # log.info("Number of use cases is: {}".format(number))
         return number
 
 

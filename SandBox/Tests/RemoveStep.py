@@ -1,4 +1,4 @@
-### Created by <sr>
+# Created by <sr>
 
 from selenium import webdriver
 from Lib.sandBoxSite.login import LoginPage
@@ -26,11 +26,13 @@ use_case_page = UseCasePage(browser)
 use_case_page.open_use_cases_page()
 
 ### precondition for test is to have use case created for testing purposes
+# log.info("Create use case with parameters {}".format(use_case))
 use_case_page.create_use_case()
 use_case_page.set_input(use_case)
 use_case_page.submit_use_case()
 ### precondition end
 
+# log.info("Delete step {}".format(step_to_delete))
 use_case_page.open_use_case(use_case.title)
 use_case_page._remove_step(step_to_delete)
 use_case_page.submit_use_case()
@@ -42,6 +44,7 @@ edited_use_case = use_case_page.get_input()
 step = use_case.which_step_deleted(edited_use_case.steps)
 if step != use_case.steps[step_to_delete-1]:
     assert False, "Wrong step deleted"
+# log.screenshot("Steps after deletion")
 
 use_case_page.go_back()
 
