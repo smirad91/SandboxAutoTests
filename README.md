@@ -17,10 +17,13 @@ To run automated test that are written in python, you need to finish some steps:
     will open. In opened python console execute python command "import selenium".
     If ImportError is not shown, this step is done.
     
- - System variable **PYTHONPATH** should have value of  path to SandBox folder.
-    User variables, **Path** should have path to chromedriver folder. 
+ - System variable **PYTHONPATH** should have value of  path to SandBox folder: 
+        example: C:\Users\...\SandboxAutoTests-master\SandBox
+   User variables, **Path** should have path to chromedriver folder:
+        example: C:\Users\...\SandboxAutoTests-master\SandBox\chromedriver
     
-Note: restart cmd after setting environment variables. Use latest Chrome version for running tests.
+Note: restart cmd after setting environment variables. 
+Use latest Chrome version for running tests.
 
 
 #About test framework:
