@@ -1,6 +1,6 @@
-#How to run tests in windows
+#Setting environment windows
 
-To run automated test that are written in python, you need to finish some steps:
+Before running automated tests that are written in python, you need to finish 3 steps:
  1. install python 3.8
  2. install selenium
  3. set environment variables
@@ -25,6 +25,10 @@ To run automated test that are written in python, you need to finish some steps:
 Note: restart cmd after setting environment variables. 
 Use latest Chrome version for running tests.
 
+#Running tests
+Open command prompt and set path to **Tests** folder. Next command should be:
+python <nazivTesta.py>
+example: python EditUseCaseNoOfCharacters.py
 
 #About test framework:
 Modules are stored in Lib folder. There exist common.py file that contains business logic
